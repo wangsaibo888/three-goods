@@ -1,0 +1,50 @@
+<view class="container">
+  <!-- 日历头部 -->
+  <view class="calendar-header">
+    <view class="arrow" bindtap="prevMonth">〈</view>
+    <view class="current-date">{{year}}年{{month}}月</view>
+    <view class="arrow" bindtap="nextMonth">〉</view>
+  </view>
+
+  <!-- 星期表头 -->
+  <view class="weekday-header">
+    <view wx:for="{{weekdays}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <!-- 日历主体 -->
+  <view class="calendar-body">
+    <view class="calendar-row" wx:for="{{dates}}" wx:for-item="row" wx:key="index">
+      <view class="calendar-cell {{item.current ? '' : 'other-month'}} {{item.hasRecord ? 'has-record' : ''}}"
+            wx:for="{{row}}" 
+            wx:key="date"
+            bindtap="selectDate"
+            data-date="{{item.fullDate}}">
+        <view class="date-number">{{item.date}}</view>
+        <view class="mood-level" wx:if="{{item.hasRecord}}">{{item.moodLevel}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 记录详情弹窗 -->
+  <view class="record-popup" wx:if="{{showRecords}}">
+    <view class="popup-mask" bindtap="closePopup"></view>
+    <view class="popup-content">
+      <view class="popup-header">
+        <text>{{selectedDate}} 的记录</text>
+        <view class="close-btn" bindtap="closePopup">×</view>
+      </view>
+      <view class="records-list">
+        <view class="record-item" wx:for="{{dayRecords}}" wx:key="_id">
+          <text class="record-content">{{item.content}}</text>
+          <image 
+            wx:if="{{item.imageUrl}}" 
+            src="{{item.imageUrl}}" 
+            mode="aspectFill"
+            bindtap="previewImage"
+            data-url="{{item.imageUrl}}"
+          ></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

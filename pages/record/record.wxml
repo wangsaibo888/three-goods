@@ -1,0 +1,37 @@
+<view class="container">
+  <!-- 剩余次数提示 -->
+  <view class="count-tip">
+    <text>今日还可记录 {{3 - todayCount}} 次</text>
+  </view>
+
+  <!-- 记录表单 -->
+  <view class="form-container">
+    <!-- 文字输入区域 -->
+    <view class="input-area">
+      <textarea 
+        placeholder="记录一件开心的事（最多50字）" 
+        maxlength="50"
+        bindinput="onContentInput"
+        value="{{content}}"
+      ></textarea>
+      <text class="word-count">{{content.length}}/50</text>
+    </view>
+
+    <!-- 图片上传区域 -->
+    <view class="image-area">
+      <view class="image-upload" bindtap="chooseImage" wx:if="{{!imageUrl}}">
+        <image class="upload-icon" src="/images/upload.png"></image>
+        <text>添加图片</text>
+      </view>
+      <view class="image-preview" wx:else>
+        <image src="{{imageUrl}}" mode="aspectFill"></image>
+        <view class="delete-btn" catchtap="deleteImage">×</view>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button class="submit-btn" bindtap="submitRecord" disabled="{{!content}}">
+      ��录美好时刻
+    </button>
+  </view>
+</view> 

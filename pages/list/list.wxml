@@ -1,0 +1,45 @@
+<view class="container">
+  <!-- 列表内容 -->
+  <scroll-view 
+    scroll-y 
+    class="records-list"
+    bindscrolltolower="loadMore"
+    lower-threshold="50">
+    
+    <view class="date-group" wx:for="{{groupedRecords}}" wx:key="date">
+      <!-- 日期标题 -->
+      <view class="date-header">
+        <text class="date">{{item.date}}</text>
+        <text class="mood-level">{{item.moodLevel}}</text>
+      </view>
+      
+      <!-- 当天记录列表 -->
+      <view class="records-group">
+        <view class="record-item" wx:for="{{item.records}}" wx:key="_id" wx:for-item="record">
+          <view class="record-time">{{record.createTime}}</view>
+          <view class="record-content">{{record.content}}</view>
+          <image 
+            wx:if="{{record.imageUrl}}" 
+            src="{{record.imageUrl}}" 
+            mode="aspectFill"
+            class="record-image"
+            bindtap="previewImage"
+            data-url="{{record.imageUrl}}"
+          ></image>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-status">
+      <view wx:if="{{isLoading}}" class="loading">加载中...</view>
+      <view wx:elif="{{noMore}}" class="no-more">没有更多记录了</view>
+    </view>
+  </scroll-view>
+
+  <!-- 无数据提示 -->
+  <view class="empty-tip" wx:if="{{!groupedRecords.length && !isLoading}}">
+    <image src="/images/empty.png" mode="aspectFit"></image>
+    <text>还没有记录哦，快去记录美好时刻吧~</text>
+  </view>
+</view> 

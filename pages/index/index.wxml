@@ -1,0 +1,23 @@
+<view class="container">
+  <!-- 用户信息区域 -->
+  <view class="user-info">
+    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      获取头像昵称
+    </button>
+    <block wx:else>
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+      <text class="nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+
+  <!-- 今日心情展示 -->
+  <view class="mood-container">
+    <text class="mood-title">今日心情</text>
+    <text class="mood-level">{{moodLevel}}</text>
+  </view>
+
+  <!-- 记录按钮 -->
+  <view class="record-btn" bindtap="goToRecord">
+    <text>记录美好时刻</text>
+  </view>
+</view> 
